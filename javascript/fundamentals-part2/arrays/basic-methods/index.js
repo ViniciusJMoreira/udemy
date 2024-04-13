@@ -18,4 +18,4 @@ console.log(friends);
 console.log(friends.indexOf('Steven')); // return the index value of the element
 console.log(friends.indexOf('Bob'));
 
-console.log(friends.includes('Bob'));
+console.log(friends.includes('Bob')); // return a boolean value
