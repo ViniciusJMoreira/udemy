@@ -6,6 +6,8 @@ const userArray = [
   ['Michael', 'Jonas', 'Jay']
 ];
 
+console.log(userArray);
+
 const user = {
   name: 'Vinicius',
   lastName: 'Junqueira',
@@ -13,3 +15,5 @@ const user = {
   job: 'Developer',
   friends: ['Michael', 'Jonas', 'Jay']
 };
+
+console.log(user);
