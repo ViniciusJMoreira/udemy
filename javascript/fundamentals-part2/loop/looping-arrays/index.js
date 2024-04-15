@@ -40,3 +40,48 @@ for (let i = 0; i < john.length; i++) {
   if(typeof john[i] === 'number') break;
   console.log(john[i]);
 }
+
+/////////////////////////////////////////////
+
+const characters = [
+  {
+    race: 'paladin',
+    level: 7,
+    attack: 50
+  },
+  {
+    race: 'mage',
+    level: 9,
+    attack: 65
+  },
+  {
+    race: 'mage',
+    level: 12,
+    attack: 82
+  },
+  {
+    race: 'knight',
+    level: 14,
+    attack: 150
+  },
+  {
+    race: 'druid',
+    level: 15,
+    attack: 75,
+    bag: ['sword-poison', 'sword-viper']
+  },
+  [15,20,56]
+]
+const mage = [];
+for (let i = 0; i < characters.length; i++) {
+  if(characters[i].race !== 'mage') continue;
+  mage.push(characters[i]);
+}
+console.log(mage);
+
+for(let i = 0; i < characters.length; i++) {
+  if(!Array.isArray(characters[i])) continue;
+  for(let j = 0; j < characters[i].length; j++) {
+    console.log(characters[i][j]);
+  }
+}
