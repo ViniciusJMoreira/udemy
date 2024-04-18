@@ -8,6 +8,10 @@ let randomNumber = Math.floor(Math.random() * 19) + 1;
 let countHighscore = 0;
 let countScore = 20;
 
+const displayMessage = function(element,message) {
+  element.textContent = message;
+}
+
 const check = function (e) {
   e.preventDefault();
   const inputNumber = Number(document.querySelector('.guess').value);
@@ -16,27 +20,29 @@ const check = function (e) {
   // when player wins
   else if(inputNumber === randomNumber) {
     document.body.style.backgroundColor = '#60b347';
-    number.textContent = inputNumber;
-    message.textContent = '🎉 Correct number!';
+    displayMessage(number,inputNumber);
+    displayMessage(message, '🎉 Correct number!');
     btnCheck.disabled = true;
     btnCheck.style.backgroundColor = '#ccc';
     if (countHighscore < countScore) {
       countHighscore = countScore;
-      highscore.textContent = countHighscore;
+      displayMessage(highscore, countHighscore);
     }
   // when guess is too high
   }else if (inputNumber !== randomNumber) {
-    message.textContent =
-      inputNumber > randomNumber ? '📉 Too high!' : '📈 Too low!';
+    displayMessage(
+      message,
+      inputNumber > randomNumber ? '📉 Too high!' : '📈 Too low!'
+    );
     countScore--;
-    score.textContent = countScore;
+    displayMessage(score, countScore);
   // when guess is too low
   }
   // 
   if(countScore === 0) {
-    message.textContent = '😥 Lose!';
+    displayMessage(message, '😥 Lose!');
     countHighscore = 0;
-    highscore.textContent = countHighscore;
+    displayMessage(highscore, countHighscore);
     btnCheck.disabled = true;
     btnCheck.style.backgroundColor = '#ccc';
   }
@@ -47,10 +53,10 @@ const reset = function (e) {
   btnCheck.style.cssText = `background-color:#eee;`;
   randomNumber = Math.floor(Math.random() * 19) + 1;
   document.body.style.cssText = `background-color:#222;`;
-  number.textContent = '?';
-  message.textContent = 'Start guessing...';
+  displayMessage(number, '?');
+  displayMessage(message, 'Start guessing...');
   countScore = 20;
-  score.textContent = countScore;
+  displayMessage(score, countScore);
   document.querySelector('.guess').value = '';
   document.querySelector('.guess').focus();
 }
