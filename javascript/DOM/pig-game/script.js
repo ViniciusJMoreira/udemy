@@ -9,13 +9,18 @@ const scorePlayer1 = document.getElementById('score--0');
 const scorePlayer2 = document.getElementById('score--1');
 const currentPlayer1 = document.getElementById('current--0');
 const currentPlayer2 = document.getElementById('current--1');
-let currentCountPlayer1 = 0;
-let currentCountPlayer2 = 0;
 let countScorePlayer1 = 0;
 let countScorePlayer2 = 0;
+let currentCountPlayer1 = 0;
+let currentCountPlayer2 = 0;
 
 const displayMessage = function(element, message) {
   element.textContent = message;
+}
+
+const tooglePlayerActiveClass = function (addElement,removeElement) {
+  addElement.classList.add('player--active');
+  removeElement.classList.remove('player--active');
 }
 
 const newGame = function () {
@@ -29,32 +34,37 @@ const newGame = function () {
   displayMessage(currentPlayer2, currentCountPlayer2);
   if(!dice.classList.contains('hidden')) dice.classList.add('hidden');
   if(!sectionPlayer1.classList.contains('.player--active')) {
-    sectionPlayer1.classList.add('player--active');
-    sectionPlayer2.classList.remove('player--active');
+    tooglePlayerActiveClass(sectionPlayer1, sectionPlayer2);
+  }
+  if (sectionPlayer1.classList.contains('player--winner') || (sectionPlayer2.classList.contains('player--winner'))) {
+    sectionPlayer1.classList.remove('player--winner');
+    sectionPlayer2.classList.remove('player--winner');
+    btnRollDice.disabled = false;
+    btnHold.disabled = false;
   }
 }
-
+// Rolling dice functionality
 const rollDice = function () {
-  const playerActive = document.querySelector('.player--active');
+  // Generating a random dice roll
   const randomNumber = Math.floor(Math.random() * 6) + 1;
+  // display a dice
   dice.src = `dice-${randomNumber}.png`;
   if (dice.classList.contains('hidden')) dice.classList.remove('hidden');
-  if (playerActive.classList.contains('player--0')){
-    if(randomNumber === 1){
+  // check for rolled 1: if true 
+  if (sectionPlayer1.classList.contains('player--active')) {
+    if (randomNumber === 1) {
       currentCountPlayer1 = 0;
       displayMessage(currentPlayer1, currentCountPlayer1);
-      sectionPlayer1.classList.remove('player--active');
-      sectionPlayer2.classList.add('player--active');
+      tooglePlayerActiveClass(sectionPlayer2, sectionPlayer1);
     } else {
       currentCountPlayer1 += randomNumber;
       displayMessage(currentPlayer1, currentCountPlayer1);
     }
-  } else if(playerActive.classList.contains('player--1')) {
+  } else {
     if (randomNumber === 1) {
       currentCountPlayer2 = 0;
       displayMessage(currentPlayer2, currentCountPlayer2);
-      sectionPlayer2.classList.remove('player--active');
-      sectionPlayer1.classList.add('player--active');
+      tooglePlayerActiveClass(sectionPlayer1, sectionPlayer2);
     } else {
       currentCountPlayer2 += randomNumber;
       displayMessage(currentPlayer2, currentCountPlayer2);
@@ -63,22 +73,25 @@ const rollDice = function () {
 }
 
 const hold = function () {
-  const playerActive = document.querySelector('.player--active');
   countScorePlayer1 += currentCountPlayer1;
   countScorePlayer2 += currentCountPlayer2;
-  if (playerActive.classList.contains('player--0')) {
+  if (countScorePlayer1 >= 100 || countScorePlayer2 >= 100) {
+    dice.classList.add('hidden');
+    btnRollDice.disabled = true;
+    btnHold.disabled = true;
+  }
+  if (sectionPlayer1.classList.contains('player--active')) {
+    if (countScorePlayer1 >= 100) sectionPlayer1.classList.add('player--winner');
     currentCountPlayer1 = 0;
     displayMessage(scorePlayer1, countScorePlayer1);
     displayMessage(currentPlayer1, currentCountPlayer1);
-    sectionPlayer2.classList.add('player--active');
-    sectionPlayer1.classList.remove('player--active');
-  }
-  else {
+    tooglePlayerActiveClass(sectionPlayer2, sectionPlayer1);
+  } else {
+    if (countScorePlayer2 >= 100) sectionPlayer2.classList.add('player--winner');
     currentCountPlayer2 = 0;
     displayMessage(scorePlayer2, countScorePlayer2);
     displayMessage(currentPlayer2, currentCountPlayer2);
-    sectionPlayer1.classList.add('player--active');
-    sectionPlayer2.classList.remove('player--active');
+    tooglePlayerActiveClass(sectionPlayer1, sectionPlayer2);
   }
 }
 
