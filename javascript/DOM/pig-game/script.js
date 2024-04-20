@@ -33,7 +33,7 @@ const newGame = function () {
   displayMessage(currentPlayer1, currentCountPlayer1);
   displayMessage(currentPlayer2, currentCountPlayer2);
   if(!dice.classList.contains('hidden')) dice.classList.add('hidden');
-  if(!sectionPlayer1.classList.contains('.player--active')) {
+  if(!sectionPlayer1.classList.contains('player--active')) {
     tooglePlayerActiveClass(sectionPlayer1, sectionPlayer2);
   }
   if (sectionPlayer1.classList.contains('player--winner') || (sectionPlayer2.classList.contains('player--winner'))) {
