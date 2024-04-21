@@ -13,6 +13,15 @@ const scores = [0,0];
 let currentScore = 0;
 let currentPlayer = 0;
 
+const switchPlayer = function () {
+  currentScore = 0;
+  document.querySelector(`#current--${currentPlayer}`).textContent =
+    currentScore;
+  currentPlayer = currentPlayer === 0 ? 1 : 0;
+  sectionPlayer0.classList.toggle('player--active');
+  sectionPlayer1.classList.toggle('player--active');
+}
+
 const newGame = function () {
   if (
     document.querySelector(`.player--${currentPlayer}`).classList.contains('player--winner')
@@ -51,33 +60,25 @@ const rollDice = function () {
     document.querySelector(`#current--${currentPlayer}`).textContent = currentScore;
   } else {
     // switch to next player
-    currentScore = 0;
-    document.querySelector(`#current--${currentPlayer}`).textContent =
-      currentScore;
-    currentPlayer = currentPlayer === 0 ? 1 : 0;
-    sectionPlayer0.classList.toggle('player--active');
-    sectionPlayer1.classList.toggle('player--active');
+    switchPlayer();
   }
 }
 
 const hold = function () {
+  // add current score to current player's score
   scores[currentPlayer] += currentScore;
-  currentScore = 0;
-  document.querySelector(`#current--${currentPlayer}`).textContent =
-    currentScore;
   document.querySelector(`#score--${currentPlayer}`).textContent =
     scores[currentPlayer];
+
+  // Check if player's score is >= 100
   if (scores[currentPlayer] >= 100) {
     document
       .querySelector(`.player--${currentPlayer}`)
       .classList.add('player--winner');
       btnRollDice.disabled = true;
       btnHold.disabled = true;
-      return;
-  }
-  currentPlayer = currentPlayer === 0 ? 1 : 0;
-  sectionPlayer0.classList.toggle('player--active');
-  sectionPlayer1.classList.toggle('player--active');
+    // switch to the next player
+  }else switchPlayer();
 }
 btnNewGame.addEventListener('click', newGame);
 btnRollDice.addEventListener('click', rollDice);
