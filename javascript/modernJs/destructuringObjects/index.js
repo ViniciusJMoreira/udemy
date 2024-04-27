@@ -34,7 +34,7 @@ const restaurant = {
 };
 // destructuring object
 let { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+// console.log(name, openingHours, categories);
 
 // setting variable name
 const {
@@ -53,21 +53,17 @@ const {
 
 // Muting Variables
 restaurant.name = "Italian Classic";
-console.log(name);
+// console.log(name);
 ({ name } = restaurant);
-console.log(name);
+// console.log(name);
 
-const numbers = {
-  n1: 1,
-  n2: 2,
-};
-let [n1 = 0, n2 = 0] = [1000, 1000];
-({fri: {open: n1, close: n2}} = openingHours);
-console.log(n1, n2);
+let [openFri = 0, closeFri = 0] = [];
+({fri: {open: openFri, close: closeFri}} = openingHours);
+// console.log(openFri, closeFri);
 
 // Nested Objects
 const {fri: {open, close}} = openingHours;
-console.log(open,close);
+// console.log(open,close);
 
 // Destructuring objects with functions arguments
 restaurant.orderDelivery({
@@ -76,3 +72,7 @@ restaurant.orderDelivery({
   mainIndex: 1,
   address: 'Via Cella, 7'
 })
+function openingFriday ({openingHours: {fri: {open , close}}}) {
+  console.log(`Friday is open from ${open} until ${close}`);
+}
+openingFriday(restaurant);
