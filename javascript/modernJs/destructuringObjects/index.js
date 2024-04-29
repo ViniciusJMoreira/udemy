@@ -76,3 +76,4 @@ function openingFriday ({openingHours: {fri: {open , close}}}) {
   console.log(`Friday is open from ${open} until ${close}`);
 }
 openingFriday(restaurant);
+
