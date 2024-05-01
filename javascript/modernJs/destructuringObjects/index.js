@@ -77,3 +77,17 @@ function openingFriday ({openingHours: {fri: {open , close}}}) {
 }
 openingFriday(restaurant);
 
+const { sat, ...weekends } = restaurant.openingHours;
+// console.log(sat,weekends);
+const [obj1, obj2] = [{a:[1,2,3,4]},{b:[5,6,7,8]}];
+const obj3 = { ...obj1, ...obj2 };
+const obj4 = { obj1, obj2 };
+// console.log(obj3);
+// console.log(obj4);
+
+function restParameter({ sat, ...weekends }) {
+  console.log(weekends.fri);
+ 
+}
+
+// restParameter(restaurant.openingHours);
