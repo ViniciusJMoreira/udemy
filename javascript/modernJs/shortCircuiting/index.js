@@ -1,8 +1,8 @@
 'use-strict';
-let number = 10;
+const number = 10;
 // console.log(number || 10);
 
-const arr = [10 , undefined , 5 , NaN , 'String' , '' , true , 0 , 'Vinicius' , {} , [] ];
+const data = [10 , undefined , 5 , NaN , 'String' , '' , true , 0 , 'Vinicius' , {} , [] ];
 const valueAnalysis = function(...arg) {
   const arr = [];
   for (let i=0;i<arg.length;i++) {
@@ -13,6 +13,6 @@ const valueAnalysis = function(...arg) {
   }
   return arr ?? "Something went wrong ";
 }
-const result = valueAnalysis(...arr);
-console.log({arr, result});
+const result = valueAnalysis(...data);
+console.log({data, result});
 
