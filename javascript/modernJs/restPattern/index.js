@@ -28,8 +28,8 @@ const { city, ...street } = home.address;
 // console.log(city, street);
 
 function restParameter(...args) {
-  const [room, ...rest] = args;
-  console.log(room, { ...rest });
+  const [bath, ...rest] = args;
+  console.log(bath, { ...rest });
 }
 
 // restParameter(...home.rooms);
