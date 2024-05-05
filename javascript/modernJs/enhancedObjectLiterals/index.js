@@ -1,8 +1,10 @@
-const week = [ "Mon", "Tue", "Wed", "Thi", "Fri" ];
+const week = ["Mon", "Tue", "Wed", "Thi", "Fri", "Sat", "Sun"];
 const weekend = {
   0: "Sat",
   1: "Sun",
 };
+const date = new Date().getDay()
+console.log(date)
 
 const openingHours = {
   [week[2]]: {
