@@ -1,3 +1,5 @@
+import { Books } from "../index.js";
+
 const week = ["Mon", "Tue", "Wed", "Thi", "Fri", "Sat", "Sun"];
 const openingHours = {
   fri: {
@@ -35,4 +37,23 @@ const weekOpening = Object.entries(openingHours);
 // console.log(weekOpening);
 for (const [day,{ open, close }] of weekOpening) {
   // console.log(`On ${day}, we open at ${open}, and close at ${close}`);
+}
+
+// object Pratice
+const books = Books;
+
+for (const book of books) {
+  const { thirdParty: {goodreads}, ...ohterProperty } = book;
+
+  const element = Object.entries(goodreads);
+  const values = Object.entries(ohterProperty);
+  let message = ``;
+  
+  for (const [i,property] of values) {
+    message += `${i}: ${property}`;
+  }
+  for (const [el,value] of element) {
+    message += ` ${el}: ${value} `;
+  }
+  // console.log( message );
 }
