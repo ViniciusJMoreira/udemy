@@ -1,4 +1,4 @@
-import { Books } from "../index.js";
+import { Books } from "../books.js";
 
 const week = ["Mon", "Tue", "Wed", "Thi", "Fri", "Sat", "Sun"];
 const openingHours = {
@@ -41,7 +41,6 @@ for (const [day,{ open, close }] of weekOpening) {
 
 // object Pratice
 const books = Books;
-
 for (const book of books) {
   const { thirdParty: {goodreads}, ...ohterProperty } = book;
 

@@ -1,3 +1,5 @@
+import { Books } from "../books.js";
+
 const week = ["Mon", "Tue", "Wed", "Thi", "Fri", "Sat", "Sun"];
 const openingHours = {
   [week[2]]: {
@@ -45,3 +47,28 @@ const orderOther = restaurant.orderOther?.(1, 2) ?? "Method does not exist";
 const users = [{fullname: 'Vinicius Moreira', email: 'vi@email.com'}];
 // const users = [];
 // console.log(users[0]?.fullname ?? 'User array empty');
+
+
+/////////////////////////////////////////////////////
+const store = {
+  openingHours: {
+    fri: {
+      open: 16,
+      close: 23,
+    },
+    sat: {
+      open: 16,
+      close: 23,
+    },
+  },
+  products: [
+    {
+      books: [],
+      shoes: [],
+      clothes: [],
+    },
+  ],
+  getProduct() {return this.products}
+}
+
+console.log(store.products[0]?.["books"] ?? "products array is empty");
