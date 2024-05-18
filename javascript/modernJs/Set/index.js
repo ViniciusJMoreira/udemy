@@ -53,7 +53,7 @@ const store = {
   },
 };
 
-const set = new Set(store.categories);
+const set = new Set();
 // console.log(set.size);
 // console.log(set.has('books'));
 // console.log(set.delete('games'));

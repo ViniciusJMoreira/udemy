@@ -1,7 +1,6 @@
 "use-strict";
 
 const map = new Map()
-  .set("question", "what is the most popular programming language ?")
   .set(1, "Java")
   .set(2, "PHP")
   .set(3, "Javascript")
@@ -10,7 +9,7 @@ const map = new Map()
   .set(false, "Wrong Choice😢");
 // console.log(map);
 const question = map.get('question');
-const asnwer = 'Javascript';
+const asnwer = 'Javascript'; // input
 console.log(map.get('question'));
 for (const [key,value] of map) {
   if(typeof key !== 'number') continue;
