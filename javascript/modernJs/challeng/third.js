@@ -21,10 +21,7 @@ const gameEvents = new Map([
 ]);
 
 // 1
-// const events = new Set();
-// for (const [, event] of gameEvents) {
-//   events.add(event);
-// }
+// const events = new Set(gameEvents.values());
 // console.log(events);
 
 // 2
@@ -36,8 +33,10 @@ gameEvents.delete(64);
 
 // 4
 for (const [key, value] of gameEvents) {
-  if (key <= 45 && gameEvents.get(key) === "⚽️ GOAL")
-    console.log(`[FIRST HALF] ${key}: ⚽️ GOAL`);
-  if (key >= 45 && gameEvents.get(key) === "⚽️ GOAL")
-    console.log(`[SSECOND HALF] ${key}: ⚽️ GOAL`);
+  const time = key <= 45 ? 'FIRST' : 'SECOND';
+  if (value === "⚽️ GOAL") console.log(`[${time} HALF] ${key}: ⚽️ GOAL`);
+}
+for (const [min, event] of gameEvents) {
+  const time = min <= 45 ? 'FIRST' : 'SECOND';
+  console.log(`[${time} HALF] ${min}: ${event}`);
 }
