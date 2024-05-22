@@ -63,18 +63,20 @@ checkBaggage('Got some snacks and a gun for protection');
 
 // console.log('Vinicius+Junqueira+Moreira'.split('+'));
 
-const [firstName, lastName] = 'Vinicius Moreira'.split(' ');
+const [firstName, lastName] = 'vinicius moreira'.split(' ');
 // console.log(firstName,lastName);
 
-const fullname = ['Mr,', firstName, lastName].join(' ');
+// const fullname = ['Mr,', firstName, lastName].join(' ');
+let fullname = 'mr, '.concat(firstName + ' ' + lastName);
 // console.log(fullname);
 
 const capitalizeName = function(name) {
   const fullname = name.split(' ');
-  const correctName = [];
+  // const correctName = [];
   for (const n of fullname) {
-    correctName.push(n[0].toUpperCase() + n.slice(1));
+    // correctName.push(n[0].toUpperCase() + n.slice(1));
     // console.log(n.replace(n[0],n[0].toUpperCase()));
+    // console.log(n.replace(/^./,n[0].toUpperCase()));
   }
   // console.log(correctName.join(' '));
 }
