@@ -27,23 +27,18 @@ Afterwards, test with your own test data!
 
 GOOD LUCK 😀
 */
-const textArea = document.createElement("textarea");
-const button = document.createElement("button");
-button.textContent = 'Enviar';
-document.body.appendChild(textArea);
-document.body.appendChild(button);
+const text = 
+`underscore_case
+ first_name
+Some_Variable
+  calculate_AGE
+delayed_departure`;
 
-button.addEventListener('click', () => {
-  const text = textArea.value;
-  const arr = text.split('\n')
-  const def = [];
+const rows = text.split('\n')
+const def = [];
 
-  for (const word of arr) {
-    word.toLowerCase();
-    const arr = word.split("_");
-    def.push(arr[0] + arr[1][0].toUpperCase() + arr[1].slice(1));
-  }
-  for (let i = 0; i < def.length; i++) {
-    console.log(def[i].padEnd(20) + "✅".repeat(i + 1));
-  }
-})
+for (const [i,row] of rows.entries()) {
+  const [first, second] = row.toLowerCase().trim().split("_");
+  def.push(first + second[0].toUpperCase() + second.slice(1));
+  console.log(def[i].padEnd(20) + "✅".repeat(i + 1));
+}
