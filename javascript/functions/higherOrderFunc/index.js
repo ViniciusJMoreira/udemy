@@ -14,6 +14,8 @@ const transformer = function (str, fn) {
   console.log(`Transformed By: ${fn.name}`);
 };
 
-transformer("Javascript is the best!", oneWord);
-console.log("----------------------");
-transformer("Javascript is the best!", upperFirstWord);
+// transformer("Javascript is the best!", oneWord);
+// console.log("----------------------");
+// transformer("Javascript is the best!", upperFirstWord);
+
+transformer.call(oneWord,"Javascript is the best!", oneWord);
