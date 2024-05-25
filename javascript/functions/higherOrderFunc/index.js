@@ -18,4 +18,4 @@ const transformer = function (str, fn) {
 // console.log("----------------------");
 // transformer("Javascript is the best!", upperFirstWord);
 
-transformer.call(oneWord,"Javascript is the best!", oneWord);
+transformer.call(null,"Javascript is the best!", oneWord);
