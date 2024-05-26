@@ -31,3 +31,31 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 
 GOOD LUCK 😀
 */
+const btn = document.querySelector('.poll');
+const poll = {
+  question: "What is your favourite programing language?",
+  options: {0:"Javascript", 1:"Python", 2:"Rust", 3:"C++"},
+  answers: new Array(4).fill(0),
+
+  registerNewAnswer() {
+    let message = `${this.question}\n`;
+    for (const [key,option] of Object.entries(this.options)) {
+      message += `${key}: ${option}\n`;
+    }
+
+    const answer = Number(prompt(message)) ?? undefined;
+    if (answer <= 3 && answer >= 0) {
+      this.answers[answer]++;
+      this.displayResults();
+    } else {alert('Wrong Choose')}
+  },
+  displayResults() {
+    let message = `Poll results are\n`;
+    for (const [key,answer] of Object.entries(this.answers)) {
+      message += `${answer}: choose for ${this.options[key]}\n`
+    }
+    alert(message);
+  }
+};
+
+btn.addEventListener('click', poll.registerNewAnswer.bind(poll));
