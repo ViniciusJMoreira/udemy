@@ -8,11 +8,10 @@ const secureBooking = function () {
 };
 
 const booker = secureBooking();
-booker();
-booker();
-booker();
-
-console.dir(booker);
+// booker();
+// booker();
+// booker();
+// console.dir(booker);
 
 //////////////////////////
 
@@ -23,13 +22,12 @@ let internal;
     console.log(n*2);
   }
 })();
-internal();
-
-console.dir(internal);
+// internal();
+// console.dir(internal);
 
 ////////////////////////
 
-const boardPassengers = function(n = 1, wait) {
+const boardPassengers = function(n = 1, wait =1) {
   const perGroup = n/3;
   const time = setTimeout(() => {
     console.log(`We are now boarding all ${n} passengers`);
@@ -38,4 +36,4 @@ const boardPassengers = function(n = 1, wait) {
   console.log(`Will start borading in ${wait} seconds.`);
 }
 
-boardPassengers(99,10);
+// boardPassengers(99,10);

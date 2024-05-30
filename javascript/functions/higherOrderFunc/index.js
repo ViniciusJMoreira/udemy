@@ -5,7 +5,7 @@ const oneWord = function (str) {
 
 const upperFirstWord = function (str) {
   const [first, ...others] = str.split(" ");
-  return [first.toUpperCase(), ...others].join(" ");
+  return [first.toUpperCase(), ...others].join(" ")
 };
 
 const transformer = function (str, fn) {
