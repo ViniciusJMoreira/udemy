@@ -42,3 +42,36 @@ letters.forEach((letter,i,arr) => {
   // console.log(arr);
 })
 
+// MAP
+
+const currencies = {
+  UnitedStates: {
+    localeCode: "en-US",
+    currency: "USD",
+  },
+  Italy: {
+    localeCode: "it-IT",
+    currency: "EUR",
+  },
+  UnitedKingdom: {
+    localeCode: "en-GB",
+    currency: "GBP",
+  },
+  Brazil: {
+    localeCode: "pt-BR",
+    currency: "BRL",
+  },
+  Germany: {
+    localeCode: "en-GB",
+    currency: "EUR",
+  },
+};
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const convertCurrency = function(movements, localeCode, currency) {
+  return movements.map(mov => mov.toLocaleString(`${localeCode}`, {style: 'currency', currency: `${currency}`}));
+}
+const country = "Germany";
+const germanyCurrency = convertCurrency(movements, currencies[country].localeCode,currencies[country].currency);
+console.log(germanyCurrency);

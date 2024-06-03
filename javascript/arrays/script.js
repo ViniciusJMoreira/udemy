@@ -65,16 +65,41 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ["en-US", "USD"], // United States
+//   ["it-IT", "EUR"], // Italy
+//   ["en-GB", "GBP"], // United Kingdom
+//   ["pt-BR", "BRL"], // Brazil
+//   ["de-DE", "EUR"], // Germany
+// ]);
+
+const currencies = {
+  UnitedStates: {
+    localeCode: "en-US",
+    currency: "USD",
+  },
+  Italy: {
+    localeCode: "it-IT",
+    currency: "EUR",
+  },
+  UnitedKingdom: {
+    localeCode: "en-GB",
+    currency: "GBP",
+  },
+  Brazil: {
+    localeCode: "pt-BR",
+    currency: "BRL",
+  },
+  Germany: {
+    localeCode: "en-GB",
+    currency: "EUR",
+  },
+};
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-
+// Mostra todos transaçoes na seçao movements
 function displayMovements(movement) {
   containerMovements.innerHTML = '';
   movement.forEach((mov,i) => {
@@ -89,5 +114,11 @@ function displayMovements(movement) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   })
 }
-
 displayMovements(movements);
+
+// Converte os valores para a moeda atual do pais selecionado
+const convertCurrency = function(movements, localeCode, currency) {
+  return movements.map(mov => mov.toLocaleString(`${localeCode}`, {style: 'currency', currency: `${currency}`}));
+}
+const country = "Brazil";
+const germanyCurrency = convertCurrency(movements, currencies[country].localeCode,currencies[country].currency);
