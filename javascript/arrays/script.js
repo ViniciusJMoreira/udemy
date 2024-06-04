@@ -122,3 +122,11 @@ const convertCurrency = function(movements, localeCode, currency) {
 }
 const country = "Brazil";
 const germanyCurrency = convertCurrency(movements, currencies[country].localeCode,currencies[country].currency);
+
+// cria a propriedade username com as iniciais do nome
+accounts.forEach(acc =>
+  acc.username = acc.owner.toLowerCase()
+  .split(' ')
+  .map(name => name[0])
+  .join('')
+)
