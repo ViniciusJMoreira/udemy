@@ -1,6 +1,8 @@
 'use-strict'
-let arr = ['a', 'b', 'c', 'd', 'e'];
 
+const personagens = require("../personagens.js");
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
 // SLICE
 // console.log(arr.slice(0,1));
 // console.log(arr.slice(2,3));
@@ -55,15 +57,33 @@ const withdrawal = movements.filter(mov => mov < 0);
 
 
 // REDUCE
+
+// A SOMA DE UM ELENCO DE NUM
 let currentBalance = 1080;
 currentBalance = movements.reduce((acc,mov) => acc + mov , currentBalance);
 // console.log(currentBalance);
-const maxValue = movements.reduce((acc,mov) => {
-  if (acc > mov) return acc;
-  else return mov;
-});
-console.log(maxValue);
 
-//SORT
-const sortMovements = movements.sort((a,b) => b-a);
-// console.log(sortMovements);
+// MAXIMO VALOR DE UM ELENCO DE NUM
+const maxValue = movements.reduce((acc,mov) => {
+  if (acc > mov) return acc; //[200, 450, -400, 3000, -650, -130, 70, 1300]
+  else return mov;
+},0)
+// console.log(maxValue);
+
+// CONTAGEM PARA CADA ELEMENTO REPETIDO
+const lettere = ["a", "b", "c", "a", "b", "c", "d"];
+const conteggio = lettere.reduce((acc, lettera) => {
+  if (!acc[lettera]) {
+    acc[lettera] = 0;
+  }
+  acc[lettera]++;
+  return acc;
+}, {});
+// console.log(conteggio); // Output: { a: 2, b: 2, c: 2, d: 1 }
+
+const paladinos = personagens.reduce((acc,personagem) => {
+  if(acc[personagem.classe]) acc[personagem.classe].push(personagem);
+  else if(personagem.classe === 'Paladino') acc[personagem.classe] = [personagem];
+  return acc;
+}, {})
+// console.log(paladinos);
