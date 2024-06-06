@@ -70,12 +70,17 @@ GOOD LUCK 😀
 */
 
 
-
-
-
-
-
-
+const calcAverageHumanAge = function (dogAges) {
+  const humanAge = dogAges.map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4);
+  const adultDogs = humanAge.filter(age => age > 18);
+  const averageAge = adultDogs.reduce((acc,age) => {
+    acc += age / adultDogs.length;
+    return Math.round(acc);
+  },0)
+  return averageAge;
+}
+// console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+// console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
 
 
 ///////////////////////////////////////
@@ -91,8 +96,14 @@ GOOD LUCK 😀
 */
 
 
+const calcAverageHumanAgeChaining = (dogsAges) =>
+  dogsAges.map((dogAge) => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+  .filter(age => age > 18)
+  .reduce((acc,age, i,arr) => Math.round(acc += age / arr.length),0);
 
 
+// console.log(calcAverageHumanAgeChaining([5, 2, 4, 1, 15, 8, 3]));
+// console.log(calcAverageHumanAgeChaining([16, 6, 10, 5, 6, 1, 4]));
 
 ///////////////////////////////////////
 // Coding Challenge #4
