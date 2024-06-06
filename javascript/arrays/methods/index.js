@@ -45,12 +45,12 @@ letters.forEach((letter,i,arr) => {
 })
 
 // MAP
-
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const movementsMap = movements.map(mov => mov*2);
 // console.log(movementsMap);
 
-// filter
+// FILTER
+// Retorna um array de todos elementos que entra na condicao
 const deposits = movements.filter(mov => mov > 0);
 const withdrawal = movements.filter(mov => mov < 0);
 // console.log(deposits, withdrawal);
@@ -81,9 +81,23 @@ const conteggio = lettere.reduce((acc, lettera) => {
 }, {});
 // console.log(conteggio); // Output: { a: 2, b: 2, c: 2, d: 1 }
 
-const paladinos = personagens.reduce((acc,personagem) => {
+// TRANSFORMACAO DE DADOS , AGRUPANDO PERSONAGENS POR CLASSES
+const classes = personagens.reduce((acc,personagem) => {
   if(acc[personagem.classe]) acc[personagem.classe].push(personagem);
-  else if(personagem.classe === 'Paladino') acc[personagem.classe] = [personagem];
+  else acc[personagem.classe] = [personagem];
   return acc;
 }, {})
 // console.log(paladinos);
+
+// FIND
+// Retorna um valor somente que entra na condicao
+const mago = personagens.find( personagem => {
+  if(personagem.classe === 'Mago' && personagem.nivel > 40) return personagem 
+});
+// console.log(mago);
+
+let result;
+for (const personagem of personagens) {
+  if(personagem.classe === 'Mago' && personagem.nivel > 40){result = personagem; break}
+}
+// console.log(result);

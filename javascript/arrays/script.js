@@ -102,20 +102,27 @@ const country = "Germany";
 /////////////////////////////////////////////////
 
 // Converte os valores para a moeda atual do pais selecionado
-function convertCurrency (movement, localeCode, currency) {
-  return movement.toLocaleString(`${localeCode}`, {style: 'currency', currency: `${currency}`});
+function convertCurrency (movement) {
+  return movement.toLocaleString(`${currencies[country].localeCode}`, {style: 'currency', currency: `${currencies[country].currency}`});
 }
 
+// Mostra e atualiza o credito atual
+function displayCurrentBalance(movements) {
+  const balance = movements.reduce((acc,mov) => acc += mov,0);
+  labelBalance.textContent = convertCurrency(balance);
+}
+displayCurrentBalance(movements);
+
 // Mostra todos transaçoes na seçao movements
-function displayMovements(movement) {
+function displayMovements(movements) {
   containerMovements.innerHTML = '';
-  movement.forEach((mov,i) => {
+  movements.forEach((mov,i) => {
     const type = mov < 0 ? 'withdrawal' : 'deposit';
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i} ${type}</div>
           <div class="movements__date">3 days ago</div>
-          <div class="movements__value">${convertCurrency(mov, currencies[country].localeCode, currencies[country].currency)}</div>
+          <div class="movements__value">${convertCurrency(mov)}</div>
         </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -123,15 +130,21 @@ function displayMovements(movement) {
 }
 displayMovements(movements);
 
-// Calcula todos os depositos e pagamentos feitos
+// Calcula todos os depositos e pagamentos feitos + taxa de interesse
 function calcDisplaySummary(movements) {
   const incomes = movements.filter(mov => mov > 0)
   .reduce((acc,mov) => acc += mov,0);
-  labelSumIn.textContent = convertCurrency(incomes, currencies[country].localeCode, currencies[country].currency);
+  labelSumIn.textContent = convertCurrency(incomes);
 
   const outcomes = movements.filter(mov => mov < 0)
   .reduce((acc,mov) => acc += mov,0);
-  labelSumOut.textContent = convertCurrency(Math.abs(outcomes), currencies[country].localeCode, currencies[country].currency);
+  labelSumOut.textContent = convertCurrency(Math.abs(outcomes));
+
+  const interest = movements.filter(mov => mov > 0).
+  map(dep => dep * 1.2/100).
+  filter(int => int >= 1).
+  reduce((acc,int) => acc += int,0);
+  labelSumInterest.textContent = convertCurrency(interest);
 }
 calcDisplaySummary(movements);
 
