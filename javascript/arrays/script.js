@@ -96,8 +96,8 @@ const currencies = {
   },
 };
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const country = "Germany";
+const country = "Brazil";
+let currentAccount = accounts[0];
 
 /////////////////////////////////////////////////
 
@@ -107,16 +107,15 @@ function convertCurrency (movement) {
 }
 
 // Mostra e atualiza o credito atual
-function displayCurrentBalance(movements) {
-  const balance = movements.reduce((acc,mov) => acc += mov,0);
-  labelBalance.textContent = convertCurrency(balance);
+function displayCurrentBalance(account) {
+  account.balance = account.movements.reduce((acc,mov) => acc += mov,0);
+  labelBalance.textContent = convertCurrency(account.balance);
 }
-displayCurrentBalance(movements);
 
 // Mostra todos transaçoes na seçao movements
-function displayMovements(movements) {
+function displayMovements(account) {
   containerMovements.innerHTML = '';
-  movements.forEach((mov,i) => {
+  account.movements.forEach((mov,i) => {
     const type = mov < 0 ? 'withdrawal' : 'deposit';
     const html = `
         <div class="movements__row">
@@ -128,25 +127,23 @@ function displayMovements(movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   })
 }
-displayMovements(movements);
 
 // Calcula todos os depositos e pagamentos feitos + taxa de interesse
-function calcDisplaySummary(movements) {
-  const incomes = movements.filter(mov => mov > 0)
+function calcDisplaySummary(account) {
+  const incomes = account.movements.filter(mov => mov > 0)
   .reduce((acc,mov) => acc += mov,0);
   labelSumIn.textContent = convertCurrency(incomes);
 
-  const outcomes = movements.filter(mov => mov < 0)
+  const outcomes = account.movements.filter(mov => mov < 0)
   .reduce((acc,mov) => acc += mov,0);
   labelSumOut.textContent = convertCurrency(Math.abs(outcomes));
 
-  const interest = movements.filter(mov => mov > 0).
-  map(dep => dep * 1.2/100).
+  const interest = account.movements.filter(mov => mov > 0).
+  map(dep => dep * account.interestRate/100).
   filter(int => int >= 1).
   reduce((acc,int) => acc += int,0);
   labelSumInterest.textContent = convertCurrency(interest);
 }
-calcDisplaySummary(movements);
 
 // cria a propriedade username com as iniciais do nome
 accounts.forEach(acc =>
@@ -155,3 +152,57 @@ accounts.forEach(acc =>
   .map(name => name[0])
   .join('')
 )
+
+// Find Acoount
+function findAccount(username) {
+  const account = accounts.find((acc) => acc.username === username);
+  return account || undefined;
+}
+
+function updateUI(account) {
+  // Display Balance
+  displayCurrentBalance(account);
+  // Display movements
+  displayMovements(account);
+  // Display summary
+  calcDisplaySummary(account);
+}
+updateUI(currentAccount);
+
+// EVENTS
+
+btnLogin.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  currentAccount = findAccount(inputLoginUsername.value);
+  const pin = Number(inputLoginPin.value);
+  if(currentAccount?.pin === pin) {
+    containerApp.style.opacity = 1;
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginUsername.blur();
+    inputLoginPin.blur();
+    // Display UI message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+    updateUI(currentAccount);
+  }
+});
+
+btnTransfer.addEventListener('click', (e) => {
+  e.preventDefault();
+  const receiveAcc = findAccount(inputTransferTo.value);
+  const amount = Number(inputTransferAmount.value);
+  inputTransferTo.value = inputTransferAmount.value = "";
+  inputTransferTo.blur();
+  inputTransferAmount.blur();
+  if(
+    receiveAcc &&
+    amount > 0 &&
+    amount <= currentAccount.balance &&
+    receiveAcc?.owner !== currentAccount.owner
+  ) {
+    currentAccount.movements.push(-amount);
+    receiveAcc.movements.push(amount);
+
+    updateUI(currentAccount);
+  }
+});
