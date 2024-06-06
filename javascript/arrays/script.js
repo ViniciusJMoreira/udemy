@@ -97,8 +97,15 @@ const currencies = {
 };
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const country = "Germany";
 
 /////////////////////////////////////////////////
+
+// Converte os valores para a moeda atual do pais selecionado
+function convertCurrency (movement, localeCode, currency) {
+  return movement.toLocaleString(`${localeCode}`, {style: 'currency', currency: `${currency}`});
+}
+
 // Mostra todos transaçoes na seçao movements
 function displayMovements(movement) {
   containerMovements.innerHTML = '';
@@ -108,7 +115,7 @@ function displayMovements(movement) {
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i} ${type}</div>
           <div class="movements__date">3 days ago</div>
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">${convertCurrency(mov, currencies[country].localeCode, currencies[country].currency)}</div>
         </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -116,12 +123,17 @@ function displayMovements(movement) {
 }
 displayMovements(movements);
 
-// Converte os valores para a moeda atual do pais selecionado
-const convertCurrency = function(movements, localeCode, currency) {
-  return movements.map(mov => mov.toLocaleString(`${localeCode}`, {style: 'currency', currency: `${currency}`}));
+// Calcula todos os depositos e pagamentos feitos
+function calcDisplaySummary(movements) {
+  const incomes = movements.filter(mov => mov > 0)
+  .reduce((acc,mov) => acc += mov,0);
+  labelSumIn.textContent = convertCurrency(incomes, currencies[country].localeCode, currencies[country].currency);
+
+  const outcomes = movements.filter(mov => mov < 0)
+  .reduce((acc,mov) => acc += mov,0);
+  labelSumOut.textContent = convertCurrency(Math.abs(outcomes), currencies[country].localeCode, currencies[country].currency);
 }
-const country = "Brazil";
-const germanyCurrency = convertCurrency(movements, currencies[country].localeCode,currencies[country].currency);
+calcDisplaySummary(movements);
 
 // cria a propriedade username com as iniciais do nome
 accounts.forEach(acc =>
