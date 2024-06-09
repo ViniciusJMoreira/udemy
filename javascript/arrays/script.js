@@ -98,6 +98,7 @@ const currencies = {
 
 const country = "Brazil";
 let currentAccount = accounts[0];
+let sort = false;
 
 /////////////////////////////////////////////////
 
@@ -113,9 +114,10 @@ function displayCurrentBalance(account) {
 }
 
 // Mostra todos transaçoes na seçao movements
-function displayMovements(account) {
+function displayMovements(account, sort = false) {
+  const movements = sort === true ? account.movements.slice().sort((a,b) => a-b) : account.movements;
   containerMovements.innerHTML = '';
-  account.movements.forEach((mov,i) => {
+  movements.forEach((mov,i) => {
     const type = mov < 0 ? 'withdrawal' : 'deposit';
     const html = `
         <div class="movements__row">
@@ -167,7 +169,6 @@ function updateUI(account) {
   // Display summary
   calcDisplaySummary(account);
 }
-updateUI(currentAccount);
 
 // EVENTS
 
@@ -206,3 +207,45 @@ btnTransfer.addEventListener('click', (e) => {
     updateUI(currentAccount);
   }
 });
+
+btnLoan.addEventListener('click', (e) => {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  inputLoanAmount.value = '';
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov > amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+})
+
+btnClose.addEventListener('click', (e) => {
+  e.preventDefault();
+  const username = inputCloseUsername.value;
+  const pin = Number(inputClosePin.value);
+  inputCloseUsername.value = inputClosePin.value = '';
+  if(
+    username === currentAccount.username &&
+    pin === currentAccount.pin
+  ) {
+    const indexAcc = accounts.findIndex(acc => acc.username === username);
+    const confirmation = confirm("Are you sure to delete the account ?");
+    if(confirmation) {
+      accounts.splice(indexAcc, 1);
+      currentAccount = undefined;
+      containerApp.style.opacity = 0;
+    }
+  }
+});
+
+btnSort.addEventListener('click', () => {
+  sort = !sort;
+  displayMovements(currentAccount, sort);
+  btnSort;blur();
+})
+
+const flat = accounts.map(acc => acc.movements).flat().reduce((acc,mov) => acc += mov);
+const flatMap = accounts.flatMap(acc => acc.movements).reduce((acc,mov) => acc += mov);
+// console.log(flat, flatMap);

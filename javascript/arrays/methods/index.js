@@ -47,7 +47,8 @@ letters.forEach((letter,i,arr) => {
 // MAP
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const movementsMap = movements.map(mov => mov*2);
-// console.log(movementsMap);
+const personagensNivel = personagens.map((peronagem) => peronagem.nivel);
+// console.log(movementsMap, personagensNivel);
 
 // FILTER
 // Retorna um array de todos elementos que entra na condicao
@@ -101,3 +102,37 @@ for (const personagem of personagens) {
   if(personagem.classe === 'Mago' && personagem.nivel > 40){result = personagem; break}
 }
 // console.log(result);
+
+// INCLUDES
+const include = letters.includes('a');
+// console.log(include);
+
+// SOME
+const some = personagens.some((personagem) => personagem.classe === "Mago");
+// console.log(some);
+
+// EVERY
+const every = personagens.every((personagem) => personagem.nivel > 50);
+// console.log(every);
+
+// FLAT
+arr = [
+  "a",
+  ["a1", ["a1.3", "a1.2"], "a2", ["a2.1", "a2.2"]],
+  "b",
+  ["b1", ["b1.1", "b1.2"], "b2", ["b2.1", "b2.2"]],
+  "c",
+  ["c1", ["c1.1", "c1.2"], "c2", ["c2.1", "c2.2"]],
+];
+const flat = arr.flat(2);
+// console.log(flat);
+
+// SORT
+letters.sort((a,b) => {
+  if(a > b) return -1;
+  if(b > a) return 1;
+});
+// console.log(letters);
+
+movements.sort((a,b)=> a - b);
+// console.log(movements);
