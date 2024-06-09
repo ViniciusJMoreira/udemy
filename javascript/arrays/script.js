@@ -180,8 +180,8 @@ btnLogin.addEventListener('click', (e) => {
   if(currentAccount?.pin === pin) {
     containerApp.style.opacity = 1;
     inputLoginUsername.value = inputLoginPin.value = '';
-    inputLoginUsername.blur();
-    inputLoginPin.blur();
+    // inputLoginUsername.blur();
+    // inputLoginPin.blur();
     // Display UI message
     labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
     updateUI(currentAccount);
@@ -193,8 +193,8 @@ btnTransfer.addEventListener('click', (e) => {
   const receiveAcc = findAccount(inputTransferTo.value);
   const amount = Number(inputTransferAmount.value);
   inputTransferTo.value = inputTransferAmount.value = "";
-  inputTransferTo.blur();
-  inputTransferAmount.blur();
+  // inputTransferTo.blur();
+  // inputTransferAmount.blur();
   if(
     receiveAcc &&
     amount > 0 &&
@@ -243,9 +243,11 @@ btnClose.addEventListener('click', (e) => {
 btnSort.addEventListener('click', () => {
   sort = !sort;
   displayMovements(currentAccount, sort);
-  btnSort;blur();
 })
 
+
+
+// METHOD FLAT
 const flat = accounts.map(acc => acc.movements).flat().reduce((acc,mov) => acc += mov);
 const flatMap = accounts.flatMap(acc => acc.movements).reduce((acc,mov) => acc += mov);
-// console.log(flat, flatMap);
+console.log(flat, flatMap);

@@ -3,7 +3,7 @@
 const personagens = require("../personagens.js");
 
 let arr = ['a', 'b', 'c', 'd', 'e'];
-// SLICE
+// METHOD SLICE
 // console.log(arr.slice(0,1));
 // console.log(arr.slice(2,3));
 // console.log(arr.slice(2,4));
@@ -11,31 +11,31 @@ let arr = ['a', 'b', 'c', 'd', 'e'];
 // console.log(arr.slice(2));
 // console.log(arr.slice(-2));
 
-// SPLICE
+// METHOD SPLICE
 arr.splice(-2);
 // console.log(`Splice: ${arr}`);
 arr = ["a", "b", "c", "d", "e"];
 
-// REVERSE
+// METHOD REVERSE
 const arr2 = ['j', 'i', 'h', 'g', 'f'].reverse();
 // console.log(`Reverse: ${arr2}`);
 
-// CONCAT
+// METHOD CONCAT
 const letters = arr.concat(arr2);
 // [...arr, ...arr2];
 // console.log(`Concat: ${letters}`);
 
-// JOIN
+// METHOD JOIN
 // console.log(`Join: ${letters.join('-')}`);
 
-// AT
+// METHOD AT
 // console.log(arr[arr.length - 1]);
 // console.log(arr.slice(-1)[0]);
 // console.log(arr.at(-1));
 // console.log(arr.at(0));
 // console.log(arr.at(2));
 
-//FOREACH
+// METHOD FOREACH
 for (const [i,letter] of Object.entries(letters)) {
   // console.log(`Letter n.${i} = ${letter}`);
 }
@@ -44,20 +44,20 @@ letters.forEach((letter,i,arr) => {
   // console.log(arr);
 })
 
-// MAP
+// METHOD MAP
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const movementsMap = movements.map(mov => mov*2);
 const personagensNivel = personagens.map((peronagem) => peronagem.nivel);
 // console.log(movementsMap, personagensNivel);
 
-// FILTER
+// METHOD FILTER
 // Retorna um array de todos elementos que entra na condicao
 const deposits = movements.filter(mov => mov > 0);
 const withdrawal = movements.filter(mov => mov < 0);
 // console.log(deposits, withdrawal);
 
 
-// REDUCE
+// METHOD REDUCE
 
 // A SOMA DE UM ELENCO DE NUM
 let currentBalance = 1080;
@@ -90,7 +90,7 @@ const classes = personagens.reduce((acc,personagem) => {
 }, {})
 // console.log(paladinos);
 
-// FIND
+// METHOD FIND
 // Retorna um valor somente que entra na condicao
 const mago = personagens.find( personagem => {
   if(personagem.classe === 'Mago' && personagem.nivel > 40) return personagem 
@@ -103,19 +103,19 @@ for (const personagem of personagens) {
 }
 // console.log(result);
 
-// INCLUDES
+// METHOD INCLUDES
 const include = letters.includes('a');
 // console.log(include);
 
-// SOME
+// METHOD SOME
 const some = personagens.some((personagem) => personagem.classe === "Mago");
 // console.log(some);
 
-// EVERY
+// METHOD EVERY
 const every = personagens.every((personagem) => personagem.nivel > 50);
 // console.log(every);
 
-// FLAT
+// METHOD FLAT
 arr = [
   "a",
   ["a1", ["a1.3", "a1.2"], "a2", ["a2.1", "a2.2"]],
@@ -127,7 +127,7 @@ arr = [
 const flat = arr.flat(2);
 // console.log(flat);
 
-// SORT
+// METHOD SORT
 letters.sort((a,b) => {
   if(a > b) return -1;
   if(b > a) return 1;
@@ -136,3 +136,21 @@ letters.sort((a,b) => {
 
 movements.sort((a,b)=> a - b);
 // console.log(movements);
+
+// METHOD FILL
+arr.fill('a' , 0);
+// console.log(arr);
+arr.fill('start', 0,1);
+arr.fill("end", 5, 6);
+// console.log(arr);
+
+// metodo de preenchimento 1
+arr = new Array(7);
+arr.map((_,i) => i+1);
+console.log(arr);
+
+
+// METHOD FROM
+// metodo de preenchimento 2
+arr = Array.from({length : 7}, ((_,i) => i+1));
+console.log(arr);
