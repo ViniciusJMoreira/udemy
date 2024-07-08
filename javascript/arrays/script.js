@@ -219,7 +219,7 @@ btnLoan.addEventListener('click', (e) => {
     currentAccount.movements.push(amount);
     updateUI(currentAccount);
   }
-})
+});
 
 btnClose.addEventListener('click', (e) => {
   e.preventDefault();
@@ -243,11 +243,27 @@ btnClose.addEventListener('click', (e) => {
 btnSort.addEventListener('click', () => {
   sort = !sort;
   displayMovements(currentAccount, sort);
-})
+});
 
 
 
 // METHOD FLAT
 const flat = accounts.map(acc => acc.movements).flat().reduce((acc,mov) => acc += mov);
 const flatMap = accounts.flatMap(acc => acc.movements).reduce((acc,mov) => acc += mov);
-console.log(flat, flatMap);
+// console.log(flat, flatMap);
+
+// PRATICE METHODS
+const {deposit, withdrawl} = accounts.flatMap(mov => mov.movements)
+.reduce((acc, mov) => {acc[mov > 0 ? "deposit" : "withdrawl"] +=mov; return acc}, {deposit:0,withdrawl:0});
+console.log(deposit,withdrawl);
+
+const capitalizeWord = function(word) {
+  const restrict = ["and", "a", "an", "the", "but", "or", "on", "in", "with"];
+  const correctWord = word.toLowerCase()
+  .split(" ")
+  .map(word => restrict.includes(word) ? word : word[0].toUpperCase() + word.slice(1))
+  .join(" ");
+  return correctWord;
+}
+console.log(capitalizeWord("this is a NICE title"));
+console.log(capitalizeWord("and HERE is Another title with an EXAMPLE"));

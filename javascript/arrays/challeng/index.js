@@ -123,6 +123,8 @@ HINT 1: Use many different tools to solve these challenges, you can use the summ
 HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
 
 TEST DATA:
+GOOD LUCK 😀
+*/
 const dogs = [
   { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
   { weight: 8, curFood: 200, owners: ['Matilda'] },
@@ -130,5 +132,37 @@ const dogs = [
   { weight: 32, curFood: 340, owners: ['Michael'] }
 ];
 
-GOOD LUCK 😀
-*/
+function recommendedPortion(dog) {
+  if(dog.curFood < dog.recommendedFood * 0.90) return "The dog eating too little";
+  if(dog.curFood > dog.recommendedFood * 1.10) return "The dog eating too much";
+  if(dog.curFood > dog.recommendedFood * 0.90 && dog.curFood > dog.recommendedFood * 1.10) return "The dog eating good";
+}
+
+// 1
+dogs.forEach((dog) => (dog.recommendedFood = dog.weight ** 0.75 * 28));
+// console.log(dogs);
+// 2
+const sarahDog = dogs.find(dog => dog.owners.includes("Sarah"));
+// console.log(recommendedPortion(sarahDog));
+// 3
+const ownersEatTooLittle = dogs.filter(dog => dog.curFood < dog.recommendedFood * 0.90);
+const ownersEatTooMuch = dogs.filter((dog) => dog.curFood > dog.recommendedFood * 1.10);
+// const {ownersEatTooLittle, ownersEatTooMuch} = dogs.reduce((acc,dog) => {
+//   if(dog.curFood < dog.recommendedFood * 0.90) acc.ownersEatTooLittle.push(dog);
+//   if(dog.curFood > dog.recommendedFood * 1.10) acc.ownersEatTooMuch.push(dog);
+//   return acc;
+// },{ownersEatTooLittle: [], ownersEatTooMuch: []})
+// console.log(ownersEatTooLittle, ownersEatTooMuch);
+// 4
+// console.log(`${ownersEatTooMuch.flatMap(owner => owner.owners).join(" and ")}'s dogs eat too much!`);
+// console.log(`${ownersEatTooLittle.flatMap(owner => owner.owners).join(" and ")}'s dogs eat too little!`);
+// 5
+// console.log(dogs.some((dog) => dog.curFood === dog.recommendedFood));
+// 6
+// console.log(dogs.some((dog) => dog.curFood > dog.recommendedFood * 0.9 && dog.curFood < dog.recommendedFood * 1.10));
+// 7
+const ownersJustEat = dogs.filter(dog => dog.curFood > dog.recommendedFood * 0.9 && dog.curFood < dog.recommendedFood * 1.10);
+// console.log(ownersJustEat);
+// 8
+const sortDogs = dogs.slice().sort((a, b) => a.recommendedFood - b.recommendedFood);
+// console.log(sortDogs);
