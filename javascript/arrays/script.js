@@ -44,21 +44,23 @@ const account2 = {
 };
 
 const account3 = {
-  owner: 'Steven Thomas Williams',
+  owner: "Steven Thomas Williams",
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
-  
+  locale: "it-IT",
 };
 
 const account4 = {
-  owner: 'Sarah Smith',
+  owner: "Sarah Smith",
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  locale: "pt-BR",
 };
 
 const accounts = [account1, account2, account3, account4];
+const locale = navigator.locale;
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -125,7 +127,7 @@ const country = "Brazil";
 let currentAccount = accounts[0];
 let sort = false;
 
-// updateUI(account1);
+updateUI(account1);
 
 
 
@@ -152,10 +154,11 @@ function calcMovementDate(date) {
   if(daysPassed === 1) return 'Yesterday';
   if(daysPassed <= 7) return `${daysPassed} days ago`;
   else {
-    const year = `${new Date(date).getFullYear()}`;
-    const month = `${new Date(date).getMonth() + 1}`.padStart(2, 0);
-    const day = `${new Date(date).getDate()}`.padStart(2, 0);
-    return `${day}/${month}/${year}`;
+    // const year = `${new Date(date).getFullYear()}`;
+    // const month = `${new Date(date).getMonth() + 1}`.padStart(2, 0);
+    // const day = `${new Date(date).getDate()}`.padStart(2, 0);
+    // return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat(locale).format(new Date(date));
   }
 }
 
@@ -221,13 +224,16 @@ function updateUI(account) {
 
 btnLogin.addEventListener('click', (e) => {
   e.preventDefault();
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    weekday: "long"
+  }
   const now =  new Date();
-  const year = `${now.getFullYear()}`;
-  const month = `${now.getMonth() + 1}`.padStart(2, 0);
-  const day = `${now.getDate()}`.padStart(2, 0);
-  const hour = `${now.getHours()}`.padStart(2, 0);
-  const minutes = `${now.getMinutes()}`.padStart(2, 0);
-  labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
+  labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
   currentAccount = findAccount(inputLoginUsername.value);
   const pin = +inputLoginPin.value;
   if(currentAccount?.pin === pin) {

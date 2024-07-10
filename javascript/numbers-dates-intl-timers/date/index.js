@@ -36,3 +36,12 @@ console.log(setNow.setFullYear(2021));
 console.log(setNow.setMonth(8));
 // modificar o dia
 console.log(setNow.setDate(21));
+// utilizando API para formatar as datas
+const options = {
+  year: "numeric",
+  month: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  weekday: "long",
+};
+console.log(new Intl.DateTimeFormat("pt-BR", options).format(now));
