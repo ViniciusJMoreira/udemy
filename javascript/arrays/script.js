@@ -125,6 +125,8 @@ const country = "Brazil";
 let currentAccount = accounts[0];
 let sort = false;
 
+// updateUI(account1);
+
 /////////////////////////////////////////////////
 
 // Converte os valores para a moeda atual do pais selecionado
@@ -143,11 +145,16 @@ function displayMovements(account, sort = false) {
   const movements = sort === true ? account.movements.slice().sort((a,b) => a-b) : account.movements;
   containerMovements.innerHTML = '';
   movements.forEach((mov,i) => {
+    const date = account.movementsDates[i];
+    const year = `${new Date(date).getFullYear()}`;
+    const month = `${new Date(date).getMonth() + 1}`.padStart(2 , 0);
+    const day = `${new Date(date).getDate()}`.padStart(2 , 0);
+    const displayDate = `${day}/${month}/${year}`;
     const type = mov < 0 ? 'withdrawal' : 'deposit';
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i} ${type}</div>
-          <div class="movements__date">3 days ago</div>
+          <div class="movements__date">${displayDate}</div>
           <div class="movements__value">${convertCurrency(mov)}</div>
         </div>
     `;
@@ -199,7 +206,13 @@ function updateUI(account) {
 
 btnLogin.addEventListener('click', (e) => {
   e.preventDefault();
-
+  const now =  new Date();
+  const year = `${now.getFullYear()}`;
+  const month = `${now.getMonth() + 1}`.padStart(2, 0);
+  const day = `${now.getDate()}`.padStart(2, 0);
+  const hour = `${now.getHours()}`.padStart(2, 0);
+  const minutes = `${now.getMinutes()}`.padStart(2, 0);
+  labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
   currentAccount = findAccount(inputLoginUsername.value);
   const pin = +inputLoginPin.value;
   if(currentAccount?.pin === pin) {
@@ -229,6 +242,10 @@ btnTransfer.addEventListener('click', (e) => {
     currentAccount.movements.push(-amount);
     receiveAcc.movements.push(amount);
 
+    // create transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiveAcc.movementsDates.push(new Date().toISOString());
+
     updateUI(currentAccount);
   }
 });
@@ -242,6 +259,9 @@ btnLoan.addEventListener('click', (e) => {
     currentAccount.movements.some((mov) => mov > amount * 0.1)
   ) {
     currentAccount.movements.push(amount);
+    // create loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
+
     updateUI(currentAccount);
   }
 });
