@@ -11,14 +11,14 @@ const account1 = {
   interestRate: 1.2, // %
   pin: 1111,
   movementsDates: [
-    "2019-11-18T21:31:17.178Z",
-    "2019-12-23T07:42:02.383Z",
-    "2020-01-28T09:15:04.904Z",
-    "2020-04-01T10:17:24.185Z",
-    "2020-05-08T14:11:59.604Z",
-    "2020-05-27T17:01:17.194Z",
-    "2020-07-11T23:36:17.929Z",
-    "2020-07-12T10:51:36.790Z",
+    "2024-06-18T21:31:17.178Z",
+    "2024-06-23T07:42:02.383Z",
+    "2024-06-28T09:15:04.904Z",
+    "2024-06-01T10:17:24.185Z",
+    "2024-05-08T14:11:59.604Z",
+    "2024-07-04T17:01:17.194Z",
+    "2024-07-09T23:36:17.929Z",
+    "2024-07-10T10:51:36.790Z",
   ],
   currency: "EUR",
   locale: "pt-PT", // de-DE
@@ -30,14 +30,14 @@ const account2 = {
   interestRate: 1.5,
   pin: 2222,
   movementsDates: [
-    "2019-11-01T13:15:33.035Z",
-    "2019-11-30T09:48:16.867Z",
-    "2019-12-25T06:04:23.907Z",
-    "2020-01-25T14:18:46.235Z",
-    "2020-02-05T16:33:06.386Z",
-    "2020-04-10T14:43:26.374Z",
-    "2020-06-25T18:49:59.371Z",
-    "2020-07-26T12:01:20.894Z",
+    "2024-11-01T13:15:33.035Z",
+    "2024-11-30T09:48:16.867Z",
+    "2024-12-25T06:04:23.907Z",
+    "2024-01-25T14:18:46.235Z",
+    "2024-02-05T16:33:06.386Z",
+    "2024-04-10T14:43:26.374Z",
+    "2024-06-25T18:49:59.371Z",
+    "2024-07-07T12:01:20.894Z",
   ],
   currency: "USD",
   locale: "en-US",
@@ -127,6 +127,8 @@ let sort = false;
 
 // updateUI(account1);
 
+
+
 /////////////////////////////////////////////////
 
 // Converte os valores para a moeda atual do pais selecionado
@@ -140,21 +142,34 @@ function displayCurrentBalance(account) {
   labelBalance.textContent = convertCurrency(account.balance);
 }
 
+// Calcula a quantidade de dias entre duas datas
+function calcMovementDate(date) {
+  const now = new Date().getTime();
+  const oldDate = new Date(date).getTime();
+  const daysPassed = Math.round(Math.abs(oldDate - now) / (1000 * 60 * 60 * 24));
+
+  if(daysPassed === 0) return 'Today';
+  if(daysPassed === 1) return 'Yesterday';
+  if(daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+    const year = `${new Date(date).getFullYear()}`;
+    const month = `${new Date(date).getMonth() + 1}`.padStart(2, 0);
+    const day = `${new Date(date).getDate()}`.padStart(2, 0);
+    return `${day}/${month}/${year}`;
+  }
+}
+
 // Mostra todos transaçoes na seçao movements
 function displayMovements(account, sort = false) {
   const movements = sort === true ? account.movements.slice().sort((a,b) => a-b) : account.movements;
   containerMovements.innerHTML = '';
   movements.forEach((mov,i) => {
     const date = account.movementsDates[i];
-    const year = `${new Date(date).getFullYear()}`;
-    const month = `${new Date(date).getMonth() + 1}`.padStart(2 , 0);
-    const day = `${new Date(date).getDate()}`.padStart(2 , 0);
-    const displayDate = `${day}/${month}/${year}`;
     const type = mov < 0 ? 'withdrawal' : 'deposit';
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i} ${type}</div>
-          <div class="movements__date">${displayDate}</div>
+          <div class="movements__date">${calcMovementDate(date)}</div>
           <div class="movements__value">${convertCurrency(mov)}</div>
         </div>
     `;
@@ -300,7 +315,7 @@ const flatMap = accounts.flatMap(acc => acc.movements).reduce((acc,mov) => acc +
 // PRATICE METHODS
 const {deposit, withdrawl} = accounts.flatMap(mov => mov.movements)
 .reduce((acc, mov) => {acc[mov > 0 ? "deposit" : "withdrawl"] +=mov; return acc}, {deposit:0,withdrawl:0});
-console.log(deposit,withdrawl);
+// console.log(deposit,withdrawl);
 
 const capitalizeWord = function(word) {
   const restrict = ["and", "a", "an", "the", "but", "or", "on", "in", "with"];
@@ -310,5 +325,5 @@ const capitalizeWord = function(word) {
   .join(" ");
   return correctWord;
 }
-console.log(capitalizeWord("this is a NICE title"));
-console.log(capitalizeWord("and HERE is Another title with an EXAMPLE"));
+// console.log(capitalizeWord("this is a NICE title"));
+// console.log(capitalizeWord("and HERE is Another title with an EXAMPLE"));
