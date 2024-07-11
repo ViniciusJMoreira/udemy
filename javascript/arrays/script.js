@@ -61,6 +61,7 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 const locale = navigator.locale;
+let timer;
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -127,11 +128,7 @@ const country = "Brazil";
 let currentAccount = accounts[0];
 let sort = false;
 
-updateUI(account1);
-
-const date = new Date().toLocaleDateString("pt-BR", {dateStyle: "long"});
-const time = new Date().toLocaleTimeString("pt-BR" , {timeStyle: "long"});
-console.log(date, time);
+// updateUI(account1);
 
 
 /////////////////////////////////////////////////
@@ -142,6 +139,26 @@ function convertCurrency (movement) {
     style: "currency",
     currency: `${currencies[country].currency}`
   });
+}
+
+// 
+function startLogOutTimer() {
+  let time = 120;
+  const ticker = function() {
+    const min = Math.trunc(time / 60);
+    const sec = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${sec}`;
+
+    if(time === 0) {
+      labelWelcome.textContent =  "Log in to get started";
+      containerApp.style.opacity = 0;
+      inputLoginUsername.focus();
+      clearInterval(timer);
+    }
+    time--;
+  }  
+  const timer = setInterval(ticker,1000);
+  return timer;
 }
 
 // Mostra e atualiza o credito atual
@@ -243,6 +260,8 @@ btnLogin.addEventListener('click', (e) => {
   currentAccount = findAccount(inputLoginUsername.value);
   const pin = +inputLoginPin.value;
   if(currentAccount?.pin === pin) {
+    clearInterval(timer);
+    timer = startLogOutTimer();
     containerApp.style.opacity = 1;
     inputLoginUsername.value = inputLoginPin.value = '';
     // inputLoginUsername.blur();
@@ -266,6 +285,9 @@ btnTransfer.addEventListener('click', (e) => {
     amount <= currentAccount.balance &&
     receiveAcc?.owner !== currentAccount.owner
   ) {
+    clearInterval(timer);
+    timer = startLogOutTimer();
+
     currentAccount.movements.push(-amount);
     receiveAcc.movements.push(amount);
 
@@ -285,11 +307,16 @@ btnLoan.addEventListener('click', (e) => {
     amount > 0 &&
     currentAccount.movements.some((mov) => mov > amount * 0.1)
   ) {
-    currentAccount.movements.push(amount);
-    // create loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+    setTimeout(() => {
+      clearInterval(timer);
+      timer = startLogOutTimer();
+      
+      currentAccount.movements.push(amount);
+      // create loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    updateUI(currentAccount);
+      updateUI(currentAccount);
+    }, 1000)
   }
 });
 
