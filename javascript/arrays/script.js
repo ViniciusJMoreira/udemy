@@ -129,13 +129,19 @@ let sort = false;
 
 updateUI(account1);
 
+const date = new Date().toLocaleDateString("pt-BR", {dateStyle: "long"});
+const time = new Date().toLocaleTimeString("pt-BR" , {timeStyle: "long"});
+console.log(date, time);
 
 
 /////////////////////////////////////////////////
 
 // Converte os valores para a moeda atual do pais selecionado
 function convertCurrency (movement) {
-  return movement.toLocaleString(`${currencies[country].localeCode}`, {style: 'currency', currency: `${currencies[country].currency}`});
+  return movement.toLocaleString(`${currencies[country].localeCode}`, {
+    style: "currency",
+    currency: `${currencies[country].currency}`
+  });
 }
 
 // Mostra e atualiza o credito atual
