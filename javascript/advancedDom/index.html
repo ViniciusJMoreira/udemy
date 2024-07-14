@@ -10,11 +10,13 @@
       href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="media-query.css" />
     <title>Bankist | When Banking meets Minimalist</title>
   </head>
   <body>
-    <header class="header">
+    <header class="header container">
       <nav class="nav">
         <img
           src="img/logo.png"
@@ -22,34 +24,42 @@
           class="nav__logo"
           id="logo"
         />
-        <ul class="nav__links">
-          <li class="nav__item">
-            <a class="nav__link" href="#section--1">Features</a>
-          </li>
-          <li class="nav__item">
-            <a class="nav__link" href="#section--2">Operations</a>
-          </li>
-          <li class="nav__item">
-            <a class="nav__link" href="#section--3">Testimonials</a>
-          </li>
-          <li class="nav__item">
-            <a class="nav__link nav__link--btn btn--show-modal" href="#"
-              >Open account</a
-            >
-          </li>
-        </ul>
+        <div class="nav__menu">
+          <div class="nav__close" id="nav-close">
+            <i class="bi bi-x-circle-fill"></i>
+          </div>
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a class="nav__link" href="#section--1">Features</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#section--2">Operations</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#section--3">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav__link nav__link--btn btn--show-modal" href="#">Open account</a>
+            </li>
+          </ul>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </div>
       </nav>
 
       <div class="header__title">
-        <h1>
-          When
-          <!-- Green highlight effect -->
-          <span class="highlight">banking</span>
-          meets<br />
-          <span class="highlight">minimalist</span>
-        </h1>
-        <h4>A simpler banking experience for a simpler life.</h4>
-        <button class="btn--text btn--scroll-to">Learn more &DownArrow;</button>
+        <div class="container__title">
+          <h1>
+            When
+            <!-- Green highlight effect -->
+            <span class="highlight">banking</span>
+            meets<br />
+            <span class="highlight">minimalist</span>
+          </h1>
+          <h4>A simpler banking experience for a simpler life.</h4>
+          <button class="btn--text btn--scroll-to">Learn more &DownArrow;</button>
+        </div>
         <img
           src="img/hero.png"
           class="header__img"
