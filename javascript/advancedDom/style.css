@@ -129,9 +129,12 @@ img {
   z-index: 100;
 }
 
-.nav__toggle, .nav__close {
+.nav__toggle, .nav__close, .nav__link--mobile {
   display: none;
-  font-size: 1.75rem;
+}
+
+.nav__toggle, .nav__close {
+  font-size: 2.125rem;
   cursor: pointer;
 }
 
@@ -157,11 +160,6 @@ img {
   align-items: center;
   list-style: none;
   column-gap: 4rem;
-}
-
-.nav__links {
-  display: flex;
-  align-items: center;
 }
 
 .nav__link:link,
@@ -200,9 +198,10 @@ img {
 .header__title {
   flex: 1;
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 1fr .5fr;
   row-gap: 3rem;
   align-content: center;
+  justify-content: center;
 
   justify-items: start;
   align-items: start;
@@ -221,7 +220,6 @@ h4 {
 .header__img {
   width: 100%;
   grid-column: 2 / 3;
-  grid-row: 1 / span 4;
   transform: translateY(-6rem);
 }
 
