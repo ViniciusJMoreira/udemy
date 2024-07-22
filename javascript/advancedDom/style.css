@@ -33,6 +33,16 @@ body {
   background-color: #f3f3f3;
 }
 
+.misuras {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 4rem;
+  color: #4bbb7d;
+  font-weight: bold;
+}
+
 /* GENERAL ELEMENTS */
 .container {
   max-width: 1260px;
