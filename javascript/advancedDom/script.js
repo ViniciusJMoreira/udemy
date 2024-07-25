@@ -35,15 +35,30 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+function handleInOut(e) {
+  const link = e.target;
+  if(link.classList.contains("nav__link")) {
+    document.querySelectorAll(".nav__link").forEach(el => {
+      if(el !== link) el.style.opacity = this;
+    });
+    const imgLogo = link.closest(".nav").querySelector("img");
+    imgLogo.style.opacity = this; 
+  };
+}
+
 ///////////////////////////////////////
 // Header Window
+nav.addEventListener('mousemove', handleInOut.bind(0.5));
+
+nav.addEventListener('mouseout', handleInOut.bind(1));
+
 navMenu.addEventListener("click", function(e) {
   e.preventDefault();
   if(e.target.classList.contains("nav__link") && !e.target.classList.contains("nav__link--btn")) {
     const id = e.target.getAttribute("href");
     document.querySelector(id).scrollIntoView({behavior: "smooth"});
   }
-})
+});
 
 
 btnScrollTo.addEventListener('click', function (e) {
@@ -85,4 +100,5 @@ tabContainer.addEventListener("click", function(event) {
   document.querySelector(`.operations__content--${currentTab.dataset.tab}`)
   .classList.add("operations__content--active");
 });
+
 
