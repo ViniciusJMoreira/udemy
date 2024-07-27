@@ -1,4 +1,4 @@
-const header = document.querySelector(".header");
+// const header = document.querySelector(".header");
 const headerNav = document.querySelector(".nav");
 const navList = document.querySelector(".nav__list");
 const firstLink = document.querySelector(".nav__link:first-child");
