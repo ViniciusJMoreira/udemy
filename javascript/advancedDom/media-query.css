@@ -5,12 +5,6 @@
   .container__title {
     padding-left: 2rem;
   }
-  h1 {
-    font-size: 5.2rem;
-  }
-  h4 {
-    font-size: 2.3rem;
-  }
 }
 
 @media (width <= 1200px) {
@@ -78,7 +72,6 @@
   .section__title {
     max-width: auto;
     text-align: center;
-    margin-inline: 1.5rem;
   }
   .features {
     width: 50rem;
@@ -107,18 +100,40 @@
 }
 
 @media (width <= 768px) {
+  .nav__logo {
+    height: 3.7rem;
+  }
   .nav__item:last-child {
+    display: none;
+  }
+  .nav__link--mobile {
     display: none;
   }
 }
 
 @media (width <= 630px) {
-  h1 {
-    font-size: 4.5rem;
-  }
 
-  h4 {
-    font-size: 1.9rem;
+}
+
+@media (width <= 540px) {
+  .nav__logo {
+    height: 3.2rem;
+  }
+  .btn--text {
+    font-size: 1.4rem;
+  }
+  .features {
+    width: auto;
+  }
+  .section--sign-up .btn {
+    font-size: 1.3rem;
+    padding: 2rem 4rem;
+  }
+}
+
+@media (width <= 480px) {
+  .btn--text {
+    font-size: 1.2rem;
   }
 }
 

@@ -91,3 +91,10 @@ h1.addEventListener("click", function() {
   // seleciona todos elementos pai do elemento selecionado
   console.log(h1.closest('h1'));
 })
+
+// Events loaded
+document.addEventListener("DOMContentLoaded", (e) => console.log("HTML Parsed and DOM tree built", e));
+
+window.addEventListener("load", (e) => console.log("Page fully loaded", e));
+
+window.addEventListener("beforeunload", (e) => e.preventDefault());
