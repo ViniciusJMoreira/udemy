@@ -1,4 +1,4 @@
-const pizzaData = [
+export const pizzaData = [
   {
     name: "Focaccia",
     ingredients: "Bread with italian olive oil and rosemary",
@@ -14,7 +14,7 @@ const pizzaData = [
     soldOut: false,
   },
   {
-    name: "Pizza Spinaci",
+    name: "Pizza Spinacci",
     ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
     price: 12,
     photoName: "pizzas/spinaci.jpg",
