@@ -123,6 +123,11 @@ input[type="checkbox"] {
   accent-color: #e5771f;
 }
 
+.list li label {
+  cursor: pointer;
+  user-select: none;
+}
+
 .list li button {
   cursor: pointer;
   background: none;

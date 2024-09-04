@@ -5,14 +5,13 @@ const initialItems = [
 ];
 
 function App() {
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState([...initialItems]);
   return (
     <div className="app">
       <Logo />
       <Form items={items} setItems={setItems} />
       <PackingList items={items} setItems={setItems} />
-      <Stats />
-      {/* <button onClick={()=> setItems({...items.push({id: 3, description:"description" , quantity:2})})}>dsadas</button> */}
+      <Stats items={items}/>
     </div>
   );
 }
@@ -63,27 +62,33 @@ function PackingList({items, setItems}) {
 }
 
 function Item({item, setItems}) {
-  function checkItem() {
-    setItems(prevItems => prevItems.map(items => items.id === item.id ? {...items, packed : !item.packed} : items))
-  }
-  function removeItem() {
-    setItems(prevItems => prevItems.filter(items => items.id !== item.id));
+  function handleItem(e) {
+    if(e.target.closest(".list li input"))
+       setItems(prevItems => prevItems.map(items => items.id === item.id ? {...items, packed: !item.packed} : items));
+    
+    if(e.target.closest(".list li button"))
+      setItems(prevItems => prevItems.filter(items => items.id !== item.id));
   }
   return (
-    <li>
-      <input type="checkbox" checked={item.packed ? true:false} onClick={checkItem}></input>
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
+    <li onClick={handleItem}>
+      <input id={`checkbox-${item.id}`} type="checkbox" checked={item.packed}/>
+      <label htmlFor={`checkbox-${item.id}`} style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
-      </span>
-      <button onClick={removeItem}>❌</button>
+      </label>
+      <button>❌</button>
     </li>
   );
 }
 
-function Stats() {
+function Stats({items}) {
+  const totalChecked = items.reduce((acc,item) => item.packed ? acc+1 : acc,0);
+  console.log(totalChecked);
   return (
     <footer className="stats">
-      <em>You have X items on your list, and you already packed X (X%)</em>
+      <em>
+        You have {items.length} items on your list, and you already packed{" "}
+        {totalChecked} {`(${ Math.round(totalChecked / items.length * 100)}%)`}
+      </em>
     </footer>
   );
 }
